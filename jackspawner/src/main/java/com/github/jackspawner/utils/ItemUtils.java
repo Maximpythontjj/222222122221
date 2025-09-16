@@ -22,7 +22,12 @@ public class ItemUtils {
     
     // NamespacedKey constants
     public static final NamespacedKey JACK_PICKAXE_KEY = new NamespacedKey(JackSpawnerPlugin.getInstance(), "is_jack_pickaxe");
+    public static final NamespacedKey PICKAXE_TYPE_KEY = new NamespacedKey(JackSpawnerPlugin.getInstance(), "pickaxe_type");
     public static final NamespacedKey MOB_TYPE_KEY = new NamespacedKey(JackSpawnerPlugin.getInstance(), "mob");
+    
+    // Pickaxe types
+    public static final String GOLDEN_JACK_PICKAXE = "golden_jack";
+    public static final String DIAMOND_JACK_PICKAXE = "diamond_jack";
     
     // Allowed mob types
     public static final Set<EntityType> ALLOWED_MOBS = Set.of(
@@ -37,9 +42,16 @@ public class ItemUtils {
     );
     
     /**
-     * Creates a Jack's Pickaxe item
+     * Creates a Golden Jack's Pickaxe item (20% chance)
      */
     public static ItemStack createJackPickaxe() {
+        return createGoldenJackPickaxe();
+    }
+    
+    /**
+     * Creates a Golden Jack's Pickaxe item (20% chance)
+     */
+    public static ItemStack createGoldenJackPickaxe() {
         ItemStack pickaxe = new ItemStack(Material.GOLDEN_PICKAXE);
         ItemMeta meta = pickaxe.getItemMeta();
         
@@ -66,6 +78,43 @@ public class ItemUtils {
         // Mark as Jack's Pickaxe in PDC
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         pdc.set(JACK_PICKAXE_KEY, PersistentDataType.BOOLEAN, true);
+        pdc.set(PICKAXE_TYPE_KEY, PersistentDataType.STRING, GOLDEN_JACK_PICKAXE);
+        
+        pickaxe.setItemMeta(meta);
+        return pickaxe;
+    }
+    
+    /**
+     * Creates a Diamond Jack's Pickaxe item (50% chance)
+     */
+    public static ItemStack createDiamondJackPickaxe() {
+        ItemStack pickaxe = new ItemStack(Material.DIAMOND_PICKAXE);
+        ItemMeta meta = pickaxe.getItemMeta();
+        
+        // Set display name
+        meta.displayName(Component.text("Кирка Джека")
+            .color(NamedTextColor.AQUA)
+            .decoration(TextDecoration.ITALIC, false));
+        
+        // Set lore
+        List<Component> lore = Arrays.asList(
+            Component.text("Ломает спавнер и с шансом 50%")
+                .color(NamedTextColor.GRAY)
+                .decoration(TextDecoration.ITALIC, false),
+            Component.text("выпадает спавнер с мобом внутри")
+                .color(NamedTextColor.GRAY)
+                .decoration(TextDecoration.ITALIC, false)
+        );
+        meta.lore(lore);
+        
+        // Add visual glow (enchantment effect)
+        meta.addEnchant(Enchantment.UNBREAKING, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        
+        // Mark as Jack's Pickaxe in PDC
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        pdc.set(JACK_PICKAXE_KEY, PersistentDataType.BOOLEAN, true);
+        pdc.set(PICKAXE_TYPE_KEY, PersistentDataType.STRING, DIAMOND_JACK_PICKAXE);
         
         pickaxe.setItemMeta(meta);
         return pickaxe;
@@ -75,7 +124,12 @@ public class ItemUtils {
      * Checks if an item is Jack's Pickaxe
      */
     public static boolean isJackPickaxe(ItemStack item) {
-        if (item == null || item.getType() != Material.GOLDEN_PICKAXE) {
+        if (item == null) {
+            return false;
+        }
+        
+        // Check if it's either golden or diamond pickaxe
+        if (item.getType() != Material.GOLDEN_PICKAXE && item.getType() != Material.DIAMOND_PICKAXE) {
             return false;
         }
         
@@ -87,6 +141,34 @@ public class ItemUtils {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         return pdc.has(JACK_PICKAXE_KEY, PersistentDataType.BOOLEAN) &&
                Boolean.TRUE.equals(pdc.get(JACK_PICKAXE_KEY, PersistentDataType.BOOLEAN));
+    }
+    
+    /**
+     * Gets the pickaxe type from a Jack's Pickaxe item
+     */
+    public static String getPickaxeType(ItemStack item) {
+        if (!isJackPickaxe(item)) {
+            return null;
+        }
+        
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return null;
+        }
+        
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        return pdc.get(PICKAXE_TYPE_KEY, PersistentDataType.STRING);
+    }
+    
+    /**
+     * Gets the drop chance for a specific pickaxe type
+     */
+    public static double getDropChance(String pickaxeType) {
+        return switch (pickaxeType) {
+            case GOLDEN_JACK_PICKAXE -> 0.2; // 20%
+            case DIAMOND_JACK_PICKAXE -> 0.5; // 50%
+            default -> 0.0;
+        };
     }
     
     /**

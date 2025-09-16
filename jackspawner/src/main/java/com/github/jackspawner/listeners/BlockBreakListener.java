@@ -17,8 +17,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockBreakListener implements Listener {
     
-    private static final double DROP_CHANCE = 0.2; // 20% chance
-    
     @EventHandler(priority = EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
@@ -46,8 +44,12 @@ public class BlockBreakListener implements Listener {
         
         // Check if this is an allowed mob type
         if (ItemUtils.ALLOWED_MOBS.contains(spawnedType)) {
-            // 20% chance to drop custom spawner
-            if (ThreadLocalRandom.current().nextDouble() < DROP_CHANCE) {
+            // Get pickaxe type and corresponding drop chance
+            String pickaxeType = ItemUtils.getPickaxeType(itemInHand);
+            double dropChance = ItemUtils.getDropChance(pickaxeType);
+            
+            // Check if spawner should drop based on pickaxe type
+            if (ThreadLocalRandom.current().nextDouble() < dropChance) {
                 ItemStack customSpawner = ItemUtils.createCustomSpawner(spawnedType);
                 if (customSpawner != null) {
                     Location dropLocation = block.getLocation().add(0.5, 0.5, 0.5);
