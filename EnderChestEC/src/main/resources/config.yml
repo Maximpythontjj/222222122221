@@ -1,8 +1,8 @@
 # EnderChestEC Config
 # Базовое количество слотов
 default-slots: 27
-# Максимум слотов
-max-slots: 81
+# Максимум слотов (ограничение Bukkit API - максимум 54)
+max-slots: 54
 # Стоимость в алмазах за 1 слот
 cost-per-slot: 5
 

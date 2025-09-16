@@ -49,8 +49,8 @@ public class EnderChestGUI implements Listener {
         int playerSlots = dataManager.getPlayerSlots(playerUUID);
         int maxSlots = plugin.getMaxSlots();
         
-        // Вычисляем размер инвентаря (должен быть кратен 9)
-        int inventorySize = Math.min(((maxSlots - 1) / 9 + 1) * 9, 81);
+        // Вычисляем размер инвентаря (должен быть кратен 9, максимум 54)
+        int inventorySize = Math.min(((maxSlots - 1) / 9 + 1) * 9, 54);
         
         // Создаем инвентарь
         Inventory inventory = Bukkit.createInventory(null, inventorySize, 
