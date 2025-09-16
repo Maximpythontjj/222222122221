@@ -45,6 +45,11 @@ public class JackShopCommand implements CommandExecutor, Listener {
         ItemStack goldenPickaxe = ItemUtils.createGoldenJackPickaxe();
         ItemMeta goldenMeta = goldenPickaxe.getItemMeta();
         List<Component> goldenLore = goldenMeta.lore();
+        if (goldenLore == null) {
+            goldenLore = new java.util.ArrayList<>();
+        } else {
+            goldenLore = new java.util.ArrayList<>(goldenLore);
+        }
         goldenLore.add(Component.text(""));
         goldenLore.add(Component.text("Цена: 15 алмазов")
             .color(NamedTextColor.GREEN));
