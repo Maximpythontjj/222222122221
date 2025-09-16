@@ -1,0 +1,17 @@
+name: ${name}
+version: ${version}
+description: ${description}
+main: ru.jackspawner.JackSpawnerPlugin
+api-version: ${apiVersion}
+author: JackSpawner Team
+
+commands:
+  givejack:
+    description: Выдать Кирку Джека
+    usage: /givejack
+    permission: jackspawner.give
+
+permissions:
+  jackspawner.give:
+    description: Позволяет получить Кирку Джека
+    default: op
