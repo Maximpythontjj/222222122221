@@ -8,10 +8,17 @@ description: Плагин добавляет Кирку Джека для доб
 commands:
   givejack:
     description: Выдаёт Кирку Джека
-    usage: /<command>
+    usage: /<command> [gold|diamond]
     permission: jackspawner.give
+  jackshop:
+    description: Открывает магазин Кирок Джека
+    usage: /<command>
+    permission: jackspawner.shop
 
 permissions:
   jackspawner.give:
     description: Разрешение на получение Кирки Джека
     default: op
+  jackspawner.shop:
+    description: Разрешение на использование магазина
+    default: true

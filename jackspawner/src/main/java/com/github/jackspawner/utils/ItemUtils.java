@@ -22,6 +22,7 @@ public class ItemUtils {
     
     // NamespacedKey constants
     public static final NamespacedKey JACK_PICKAXE_KEY = new NamespacedKey(JackSpawnerPlugin.getInstance(), "is_jack_pickaxe");
+    public static final NamespacedKey JACK_PICKAXE_CHANCE_KEY = new NamespacedKey(JackSpawnerPlugin.getInstance(), "jack_pickaxe_chance");
     public static final NamespacedKey MOB_TYPE_KEY = new NamespacedKey(JackSpawnerPlugin.getInstance(), "mob");
     
     // Allowed mob types
@@ -37,24 +38,37 @@ public class ItemUtils {
     );
     
     /**
-     * Creates a Jack's Pickaxe item
+     * Creates a Golden Jack's Pickaxe item (20% chance)
      */
     public static ItemStack createJackPickaxe() {
-        ItemStack pickaxe = new ItemStack(Material.GOLDEN_PICKAXE);
+        return createJackPickaxe(20);
+    }
+    
+    /**
+     * Creates a Jack's Pickaxe item with specified drop chance
+     * @param dropChance Drop chance in percent (20 or 50)
+     */
+    public static ItemStack createJackPickaxe(int dropChance) {
+        boolean isDiamond = dropChance == 50;
+        ItemStack pickaxe = new ItemStack(isDiamond ? Material.DIAMOND_PICKAXE : Material.GOLDEN_PICKAXE);
         ItemMeta meta = pickaxe.getItemMeta();
         
         // Set display name
         meta.displayName(Component.text("Кирка Джека")
-            .color(NamedTextColor.GOLD)
+            .color(isDiamond ? NamedTextColor.AQUA : NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false));
         
         // Set lore
         List<Component> lore = Arrays.asList(
-            Component.text("Ломает спавнер и с шансом 20%")
+            Component.text("Ломает спавнер и с шансом " + dropChance + "%")
                 .color(NamedTextColor.GRAY)
                 .decoration(TextDecoration.ITALIC, false),
             Component.text("выпадает спавнер с мобом внутри")
                 .color(NamedTextColor.GRAY)
+                .decoration(TextDecoration.ITALIC, false),
+            Component.text(""),
+            Component.text(isDiamond ? "Алмазная версия" : "Золотая версия")
+                .color(isDiamond ? NamedTextColor.AQUA : NamedTextColor.YELLOW)
                 .decoration(TextDecoration.ITALIC, false)
         );
         meta.lore(lore);
@@ -63,9 +77,10 @@ public class ItemUtils {
         meta.addEnchant(Enchantment.UNBREAKING, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         
-        // Mark as Jack's Pickaxe in PDC
+        // Mark as Jack's Pickaxe in PDC with drop chance
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         pdc.set(JACK_PICKAXE_KEY, PersistentDataType.BOOLEAN, true);
+        pdc.set(JACK_PICKAXE_CHANCE_KEY, PersistentDataType.INTEGER, dropChance);
         
         pickaxe.setItemMeta(meta);
         return pickaxe;
@@ -75,7 +90,7 @@ public class ItemUtils {
      * Checks if an item is Jack's Pickaxe
      */
     public static boolean isJackPickaxe(ItemStack item) {
-        if (item == null || item.getType() != Material.GOLDEN_PICKAXE) {
+        if (item == null || (item.getType() != Material.GOLDEN_PICKAXE && item.getType() != Material.DIAMOND_PICKAXE)) {
             return false;
         }
         
@@ -87,6 +102,29 @@ public class ItemUtils {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         return pdc.has(JACK_PICKAXE_KEY, PersistentDataType.BOOLEAN) &&
                Boolean.TRUE.equals(pdc.get(JACK_PICKAXE_KEY, PersistentDataType.BOOLEAN));
+    }
+    
+    /**
+     * Gets the drop chance from Jack's Pickaxe
+     */
+    public static double getJackPickaxeDropChance(ItemStack item) {
+        if (!isJackPickaxe(item)) {
+            return 0.0;
+        }
+        
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return 0.2; // Default 20%
+        }
+        
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        Integer chance = pdc.get(JACK_PICKAXE_CHANCE_KEY, PersistentDataType.INTEGER);
+        
+        if (chance == null) {
+            return 0.2; // Default 20% for old pickaxes
+        }
+        
+        return chance / 100.0;
     }
     
     /**

@@ -28,10 +28,23 @@ public class GiveJackCommand implements CommandExecutor {
             return true;
         }
         
-        ItemStack jackPickaxe = ItemUtils.createJackPickaxe();
+        // Determine which type of pickaxe to give
+        int dropChance = 20; // Default is golden pickaxe with 20% chance
+        
+        if (args.length > 0) {
+            if (args[0].equalsIgnoreCase("diamond") || args[0].equals("50")) {
+                dropChance = 50;
+            } else if (args[0].equalsIgnoreCase("gold") || args[0].equals("20")) {
+                dropChance = 20;
+            }
+        }
+        
+        // Create and give Jack's Pickaxe
+        ItemStack jackPickaxe = ItemUtils.createJackPickaxe(dropChance);
         player.getInventory().addItem(jackPickaxe);
         
-        player.sendMessage(Component.text("Вы получили Кирку Джека!")
+        String pickaxeType = dropChance == 50 ? "Алмазную Кирку Джека (50%)" : "Золотую Кирку Джека (20%)";
+        player.sendMessage(Component.text("Вы получили " + pickaxeType + "!")
             .color(NamedTextColor.GREEN));
         
         return true;
