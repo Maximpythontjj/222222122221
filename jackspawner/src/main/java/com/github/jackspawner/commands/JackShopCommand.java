@@ -94,25 +94,27 @@ public class JackShopCommand implements CommandExecutor, Listener {
             .color(NamedTextColor.AQUA));
         cyanGlass.setItemMeta(cyanMeta);
         
-        // Frame for golden pickaxe (around slot 11)
+        // Frame for golden pickaxe (around slot 11) - 3x3 grid starting from slot 1
         shopInventory.setItem(1, yellowGlass);   // Top-left
         shopInventory.setItem(2, yellowGlass);   // Top-center  
         shopInventory.setItem(3, yellowGlass);   // Top-right
         shopInventory.setItem(10, yellowGlass);  // Middle-left
+        // slot 11 is the golden pickaxe
         shopInventory.setItem(12, yellowGlass);  // Middle-right
         shopInventory.setItem(19, yellowGlass);  // Bottom-left
         shopInventory.setItem(20, yellowGlass);  // Bottom-center
         shopInventory.setItem(21, yellowGlass);  // Bottom-right
         
-        // Frame for diamond pickaxe
-        shopInventory.setItem(5, cyanGlass);
-        shopInventory.setItem(6, cyanGlass);
-        shopInventory.setItem(7, cyanGlass);
-        shopInventory.setItem(14, cyanGlass);
-        shopInventory.setItem(16, cyanGlass);
-        shopInventory.setItem(23, cyanGlass);
-        shopInventory.setItem(24, cyanGlass);
-        shopInventory.setItem(25, cyanGlass);
+        // Frame for diamond pickaxe (around slot 15) - 3x3 grid starting from slot 5
+        shopInventory.setItem(5, cyanGlass);     // Top-left
+        shopInventory.setItem(6, cyanGlass);     // Top-center
+        shopInventory.setItem(7, cyanGlass);     // Top-right
+        shopInventory.setItem(14, cyanGlass);    // Middle-left
+        // slot 15 is the diamond pickaxe
+        shopInventory.setItem(16, cyanGlass);    // Middle-right
+        shopInventory.setItem(23, cyanGlass);    // Bottom-left
+        shopInventory.setItem(24, cyanGlass);    // Bottom-center
+        shopInventory.setItem(25, cyanGlass);    // Bottom-right
         
         player.openInventory(shopInventory);
     }
