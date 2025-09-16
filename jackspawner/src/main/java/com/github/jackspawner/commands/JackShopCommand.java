@@ -94,15 +94,15 @@ public class JackShopCommand implements CommandExecutor, Listener {
             .color(NamedTextColor.AQUA));
         cyanGlass.setItemMeta(cyanMeta);
         
-        // Frame for golden pickaxe
-        shopInventory.setItem(2, yellowGlass);
-        shopInventory.setItem(3, yellowGlass);
-        shopInventory.setItem(4, yellowGlass);
-        shopInventory.setItem(10, yellowGlass);
-        shopInventory.setItem(12, yellowGlass);
-        shopInventory.setItem(19, yellowGlass);
-        shopInventory.setItem(20, yellowGlass);
-        shopInventory.setItem(21, yellowGlass);
+        // Frame for golden pickaxe (around slot 11)
+        shopInventory.setItem(1, yellowGlass);   // Top-left
+        shopInventory.setItem(2, yellowGlass);   // Top-center  
+        shopInventory.setItem(3, yellowGlass);   // Top-right
+        shopInventory.setItem(10, yellowGlass);  // Middle-left
+        shopInventory.setItem(12, yellowGlass);  // Middle-right
+        shopInventory.setItem(19, yellowGlass);  // Bottom-left
+        shopInventory.setItem(20, yellowGlass);  // Bottom-center
+        shopInventory.setItem(21, yellowGlass);  // Bottom-right
         
         // Frame for diamond pickaxe
         shopInventory.setItem(5, cyanGlass);
