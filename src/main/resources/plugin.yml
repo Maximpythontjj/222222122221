@@ -1,0 +1,14 @@
+name: RtpPlugin
+version: 1.0.0
+main: com.example.rtp.RtpPlugin
+description: Random safe teleport command
+api-version: '1.20'
+commands:
+  rtp:
+    description: Телепортирует в случайное безопасное место
+    usage: /rtp
+    permission: rtp.use
+permissions:
+  rtp.use:
+    description: Позволяет использовать команду /rtp
+    default: true
