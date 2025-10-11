@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
 import org.bukkit.HeightMap;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -16,8 +18,12 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public final class RtpPlugin extends JavaPlugin {
 
@@ -76,7 +82,7 @@ public final class RtpPlugin extends JavaPlugin {
             getServer().getScheduler().runTask(this, () -> {
                 if (success) {
                     playTeleportEffects(target);
-                    player.sendMessage("§aВы были телепортированы в случайное место!");
+                    triggerSuccessEffects(player, target);
                 } else {
                     cooldowns.remove(playerId);
                     player.sendMessage("§cТелепортация не удалась. Попробуйте снова.");
@@ -143,5 +149,30 @@ public final class RtpPlugin extends JavaPlugin {
         }
         world.spawnParticle(Particle.PORTAL, location, 120, 0.5, 1.0, 0.5, 0.1);
         world.playSound(location, Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+    }
+
+    private void triggerSuccessEffects(Player player, Location location) {
+        player.sendMessage("§aВы успешно телепортированы.");
+        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 3 * 20, 0, false, true, true));
+
+        World world = location.getWorld();
+        if (world == null) {
+            return;
+        }
+
+        world.spawn(location, Firework.class, firework -> {
+            firework.setSilent(true);
+            firework.setShotAtAngle(false);
+            FireworkMeta meta = firework.getFireworkMeta();
+            meta.setPower(1);
+            meta.clearEffects();
+            meta.addEffect(FireworkEffect.builder()
+                .withColor(Color.LIME, Color.WHITE)
+                .withFade(Color.GREEN)
+                .with(FireworkEffect.Type.BALL_LARGE)
+                .withFlicker()
+                .build());
+            firework.setFireworkMeta(meta);
+        });
     }
 }
