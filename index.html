@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHADOWLAND — Minecraft сервер 1.21.8</title>
+  <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="SHADOWLAND — ванильный сервер с плагинами для выживания без пвп. Версия 1.21.8. IP: c3.play2go.cloud:20071" />
+  <meta name="theme-color" content="#3b1a5a" />
+</head>
+<body>
+  <!-- Dynamic animated background (runes + particles + clouds) -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="fog-layer" aria-hidden="true"></div>
+  <div class="clouds-layer" aria-hidden="true"></div>
+  <div class="floating-block fb-1" aria-hidden="true"></div>
+  <div class="floating-block fb-2" aria-hidden="true"></div>
+  <div class="floating-block fb-3" aria-hidden="true"></div>
+
+  <main>
+    <!-- Hero -->
+    <section class="section hero" id="hero">
+      <div class="container">
+        <h1 class="logo" aria-label="SHADOWLAND">SHADOWLAND</h1>
+        <p class="subtitle">Версия 1.21.8 | IP: <span id="server-ip-text">c3.play2go.cloud:20071</span></p>
+        <div class="cta-row">
+          <button class="btn btn-primary" id="copy-ip-hero" data-ip="c3.play2go.cloud:20071">Играть сейчас</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section about" id="about">
+      <div class="container">
+        <h2 class="heading">О сервере</h2>
+        <p class="about-text">Это обычный ванильный сервер с плагинами для выживания без пвп.</p>
+
+        <div class="icon-grid">
+          <div class="icon-card" title="Крафт">
+            <svg viewBox="0 0 16 16" class="pixel-svg" aria-hidden="true">
+              <rect width="16" height="16" fill="#2b1e3f"/>
+              <rect x="1" y="1" width="14" height="14" fill="#3a2857"/>
+              <rect x="3" y="3" width="10" height="10" fill="#5c3a88"/>
+              <rect x="5" y="5" width="6" height="6" fill="#8e6acc"/>
+            </svg>
+            <span>Верстак</span>
+          </div>
+          <div class="icon-card" title="Приключения">
+            <svg viewBox="0 0 16 16" class="pixel-svg" aria-hidden="true">
+              <rect width="16" height="16" fill="#2b1e3f"/>
+              <rect x="7" y="2" width="2" height="12" fill="#b38cff"/>
+              <rect x="6" y="3" width="4" height="2" fill="#6b49a8"/>
+              <rect x="6" y="11" width="4" height="2" fill="#6b49a8"/>
+            </svg>
+            <span>Меч</span>
+          </div>
+          <div class="icon-card" title="Лут">
+            <svg viewBox="0 0 16 16" class="pixel-svg" aria-hidden="true">
+              <rect width="16" height="16" fill="#2b1e3f"/>
+              <rect x="2" y="5" width="12" height="9" fill="#6b49a8"/>
+              <rect x="3" y="6" width="10" height="7" fill="#8e6acc"/>
+              <rect x="7" y="9" width="2" height="2" fill="#2b1e3f"/>
+            </svg>
+            <span>Сундук</span>
+          </div>
+        </div>
+
+        <div class="gallery">
+          <button class="slider-btn prev" aria-label="Предыдущий" id="slider-prev">◀</button>
+          <div class="slider-viewport">
+            <div class="slider-track" id="slider-track">
+              <div class="slide" aria-label="Скриншот 1"></div>
+              <div class="slide" aria-label="Скриншот 2"></div>
+              <div class="slide" aria-label="Скриншот 3"></div>
+            </div>
+          </div>
+          <button class="slider-btn next" aria-label="Следующий" id="slider-next">▶</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section features" id="features">
+      <div class="container">
+        <h2 class="heading">Фишки сервера</h2>
+        <div class="card-grid">
+          <article class="feature-card">
+            <h3>Кастомные биомы</h3>
+            <p>Открой новые магические ландшафты, сохраняя ванильную атмосферу.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Магические боссы</h3>
+            <p>Сражайся с уникальными боссами PvE и получай редкие трофеи.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Экономика и кланы</h3>
+            <p>Торгуй, строй поселения и объединяйся с друзьями. Без PvP.</p>
+          </article>
+          <article class="feature-card">
+            <h3>События каждую неделю</h3>
+            <p>Ивенты, квесты и сезонные активности для всех игроков.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Connect -->
+    <section class="section connect" id="connect">
+      <div class="container">
+        <h2 class="heading">Как подключиться</h2>
+        <ol class="steps">
+          <li>
+            <div class="step-num">1</div>
+            <div class="step-text">Установи Minecraft <strong>1.21.8</strong></div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div class="step-text">Введи IP: <code>c3.play2go.cloud:20071</code></div>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <div class="step-text">Наслаждайся игрой!</div>
+          </li>
+        </ol>
+        <div class="cta-row">
+          <button class="btn btn-secondary" id="copy-ip-connect" data-ip="c3.play2go.cloud:20071">Скопировать IP</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-row">
+      <a class="discord-link" href="#" target="_blank" rel="noopener">
+        <span class="pixel-discord" aria-hidden="true"></span>
+        <span>Discord</span>
+      </a>
+      <span class="copyright">© 2025 SHADOWLAND</span>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
+
