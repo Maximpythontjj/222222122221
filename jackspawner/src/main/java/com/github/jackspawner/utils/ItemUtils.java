@@ -22,6 +22,7 @@ public class ItemUtils {
     
     // NamespacedKey constants
     public static final NamespacedKey JACK_PICKAXE_KEY = new NamespacedKey(JackSpawnerPlugin.getInstance(), "is_jack_pickaxe");
+    public static final NamespacedKey JACK_PICKAXE_CHANCE_KEY = new NamespacedKey(JackSpawnerPlugin.getInstance(), "jack_pickaxe_chance");
     public static final NamespacedKey MOB_TYPE_KEY = new NamespacedKey(JackSpawnerPlugin.getInstance(), "mob");
     
     // Allowed mob types
@@ -37,20 +38,27 @@ public class ItemUtils {
     );
     
     /**
-     * Creates a Jack's Pickaxe item
+     * Creates a Jack's Pickaxe item (default golden 20%).
      */
     public static ItemStack createJackPickaxe() {
-        ItemStack pickaxe = new ItemStack(Material.GOLDEN_PICKAXE);
+        return createJackPickaxeWith(Material.GOLDEN_PICKAXE, 20);
+    }
+
+    /**
+     * Creates a Jack's Pickaxe item with specified material and chance percent.
+     */
+    public static ItemStack createJackPickaxeWith(Material material, int chancePercent) {
+        ItemStack pickaxe = new ItemStack(material);
         ItemMeta meta = pickaxe.getItemMeta();
         
-        // Set display name
+        // Set display name (same for all variants)
         meta.displayName(Component.text("Кирка Джека")
-            .color(NamedTextColor.GOLD)
+            .color(material == Material.DIAMOND_PICKAXE ? NamedTextColor.AQUA : NamedTextColor.GOLD)
             .decoration(TextDecoration.ITALIC, false));
         
-        // Set lore
+        // Set lore (uses dynamic chance)
         List<Component> lore = Arrays.asList(
-            Component.text("Ломает спавнер и с шансом 20%")
+            Component.text("Ломает спавнер и с шансом " + chancePercent + "%")
                 .color(NamedTextColor.GRAY)
                 .decoration(TextDecoration.ITALIC, false),
             Component.text("выпадает спавнер с мобом внутри")
@@ -66,16 +74,24 @@ public class ItemUtils {
         // Mark as Jack's Pickaxe in PDC
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         pdc.set(JACK_PICKAXE_KEY, PersistentDataType.BOOLEAN, true);
+        pdc.set(JACK_PICKAXE_CHANCE_KEY, PersistentDataType.INTEGER, Math.max(0, Math.min(100, chancePercent)));
         
         pickaxe.setItemMeta(meta);
         return pickaxe;
+    }
+
+    /**
+     * Convenience: creates diamond Jack's Pickaxe with 50% chance.
+     */
+    public static ItemStack createDiamondJackPickaxe50() {
+        return createJackPickaxeWith(Material.DIAMOND_PICKAXE, 50);
     }
     
     /**
      * Checks if an item is Jack's Pickaxe
      */
     public static boolean isJackPickaxe(ItemStack item) {
-        if (item == null || item.getType() != Material.GOLDEN_PICKAXE) {
+        if (item == null) {
             return false;
         }
         
@@ -87,6 +103,25 @@ public class ItemUtils {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         return pdc.has(JACK_PICKAXE_KEY, PersistentDataType.BOOLEAN) &&
                Boolean.TRUE.equals(pdc.get(JACK_PICKAXE_KEY, PersistentDataType.BOOLEAN));
+    }
+
+    /**
+     * Reads the stored chance percent from a Jack's Pickaxe. Defaults to 20 if absent.
+     */
+    public static int getJackPickaxeChancePercent(ItemStack item) {
+        if (item == null) {
+            return 20;
+        }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return 20;
+        }
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        Integer value = pdc.get(JACK_PICKAXE_CHANCE_KEY, PersistentDataType.INTEGER);
+        if (value == null) {
+            return 20;
+        }
+        return Math.max(0, Math.min(100, value));
     }
     
     /**

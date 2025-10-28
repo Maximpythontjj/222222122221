@@ -17,7 +17,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockBreakListener implements Listener {
     
-    private static final double DROP_CHANCE = 0.2; // 20% chance
     
     @EventHandler(priority = EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent event) {
@@ -46,8 +45,9 @@ public class BlockBreakListener implements Listener {
         
         // Check if this is an allowed mob type
         if (ItemUtils.ALLOWED_MOBS.contains(spawnedType)) {
-            // 20% chance to drop custom spawner
-            if (ThreadLocalRandom.current().nextDouble() < DROP_CHANCE) {
+            // Use per-item chance stored in Jack's Pickaxe (defaults to 20%)
+            int chancePercent = ItemUtils.getJackPickaxeChancePercent(itemInHand);
+            if (ThreadLocalRandom.current().nextInt(100) < chancePercent) {
                 ItemStack customSpawner = ItemUtils.createCustomSpawner(spawnedType);
                 if (customSpawner != null) {
                     Location dropLocation = block.getLocation().add(0.5, 0.5, 0.5);
