@@ -1,0 +1,24 @@
+name: JackSpawner
+version: ${version}
+main: com.github.jackspawner.JackSpawnerPlugin
+api-version: '1.21'
+author: JackSpawner Developer
+description: Плагин добавляет Кирку Джека для добычи спавнеров
+
+commands:
+  givejack:
+    description: Выдаёт Кирку Джека
+    usage: /<command> [gold|diamond]
+    permission: jackspawner.give
+  jackshop:
+    description: Открывает магазин Кирок Джека
+    usage: /<command>
+    permission: jackspawner.shop
+
+permissions:
+  jackspawner.give:
+    description: Разрешение на получение Кирки Джека
+    default: op
+  jackspawner.shop:
+    description: Разрешение на использование магазина
+    default: true
