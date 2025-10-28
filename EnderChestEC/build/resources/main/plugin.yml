@@ -1,0 +1,20 @@
+name: EnderChestEC
+main: com.example.enderchestec.EnderChestEC
+version: 1.0.0
+api-version: '1.21'
+author: SeniorDeveloper
+description: Расширяемый эндер-сундук с командой /ec
+
+commands:
+  ec:
+    description: Открыть расширяемый эндер-сундук
+    usage: /ec
+    permission: enderchestec.use
+
+permissions:
+  enderchestec.use:
+    default: true
+    description: Позволяет использовать команду /ec
+  enderchestec.admin:
+    default: op
+    description: Админские права для управления плагином
