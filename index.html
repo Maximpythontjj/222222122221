@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHADOWLAND - Minecraft Server 1.21.8</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="logo-container">
+                <h1 class="logo">SHADOWLAND</h1>
+                <div class="glow-effect"></div>
+            </div>
+            <p class="server-info">Версия 1.21.8 | IP: c3.play2go.cloud:20071</p>
+            <button class="play-button" onclick="copyIP()">
+                <span class="button-text">Играть сейчас</span>
+                <div class="button-glow"></div>
+            </button>
+        </div>
+        <div class="floating-blocks">
+            <div class="floating-block block-1"></div>
+            <div class="floating-block block-2"></div>
+            <div class="floating-block block-3"></div>
+        </div>
+    </section>
+
+    <!-- About Server Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title">О Сервере</h2>
+            <div class="about-content">
+                <div class="description-block">
+                    <p class="server-description">
+                        Это обычный ванильный сервер с плагинами для выживания без пвп. 
+                        Погрузитесь в мирный мир строительства и исследований, где каждый игрок 
+                        может развиваться в своем темпе и создавать невероятные постройки.
+                    </p>
+                </div>
+                <div class="features-icons">
+                    <div class="feature-icon">
+                        <div class="icon crafting-table"></div>
+                        <span>Крафт</span>
+                    </div>
+                    <div class="feature-icon">
+                        <div class="icon pickaxe"></div>
+                        <span>Добыча</span>
+                    </div>
+                    <div class="feature-icon">
+                        <div class="icon chest"></div>
+                        <span>Хранение</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Screenshot Gallery -->
+            <div class="gallery-container">
+                <div class="gallery-slider">
+                    <div class="slide active">
+                        <div class="screenshot-placeholder">
+                            <span>Скриншот 1</span>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="screenshot-placeholder">
+                            <span>Скриншот 2</span>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="screenshot-placeholder">
+                            <span>Скриншот 3</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-controls">
+                    <button class="gallery-btn prev-btn" onclick="changeSlide(-1)">❮</button>
+                    <button class="gallery-btn next-btn" onclick="changeSlide(1)">❯</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Server Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Особенности Сервера</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="card-icon biome-icon"></div>
+                    <h3>Ванильное Выживание</h3>
+                    <p>Классический опыт Minecraft без модификаций геймплея</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon boss-icon"></div>
+                    <h3>Мирная Атмосфера</h3>
+                    <p>Никакого PvP - только дружелюбное сообщество строителей</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon economy-icon"></div>
+                    <h3>Полезные Плагины</h3>
+                    <p>Удобные дополнения для комфортной игры и общения</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon events-icon"></div>
+                    <h3>Активное Сообщество</h3>
+                    <p>Совместные проекты и дружелюбные игроки</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Connect Section -->
+    <section class="connect-section">
+        <div class="container">
+            <h2 class="section-title">Как Подключиться</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Установи Minecraft 1.21.8</h3>
+                        <p>Убедись, что у тебя установлена правильная версия игры</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Введи IP адрес</h3>
+                        <p>c3.play2go.cloud:20071</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Наслаждайся игрой!</h3>
+                        <p>Добро пожаловать в мир SHADOWLAND</p>
+                    </div>
+                </div>
+            </div>
+            <button class="copy-ip-button" onclick="copyIP()">
+                <span>Скопировать IP</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#" class="discord-link">
+                        <div class="discord-icon"></div>
+                        <span>Discord</span>
+                    </a>
+                </div>
+                <div class="copyright">
+                    <p>© 2025 SHADOWLAND</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification for IP Copy -->
+    <div class="notification" id="notification">
+        IP адрес скопирован в буфер обмена!
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
