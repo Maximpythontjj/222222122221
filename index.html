@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0812" />
+    <title>SHADOWLAND — Minecraft сервер 1.21.8</title>
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+    <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="fog" aria-hidden="true"></div>
+    <div id="cloud-layer" aria-hidden="true">
+      <span class="cloud cloud-1"></span>
+      <span class="cloud cloud-2"></span>
+      <span class="cloud cloud-3"></span>
+      <span class="cloud cloud-4"></span>
+    </div>
+
+    <main>
+      <section id="hero" class="section hero">
+        <div class="floating-blocks" aria-hidden="true">
+          <div class="block b1"></div>
+          <div class="block b2"></div>
+          <div class="block b3"></div>
+        </div>
+        <h1 class="logo">SHADOWLAND</h1>
+        <p class="subtitle">Версия 1.21.8 | IP: <span class="ip">c3.play2go.cloud:20071</span></p>
+        <button class="btn btn-primary" data-copy-ip>
+          Играть сейчас
+          <span class="btn-glow"></span>
+        </button>
+      </section>
+
+      <section id="about" class="section about">
+        <h2 class="heading">О сервере</h2>
+        <p class="text">
+          Это обычный ванильный сервер с плагинами для выживания без пвп.
+        </p>
+        <div class="icon-grid">
+          <div class="icon-card" title="Верстак">
+            <svg viewBox="0 0 64 64" class="pixel-icon" aria-hidden="true">
+              <rect width="64" height="64" fill="#3b2b1f"/>
+              <rect x="4" y="4" width="56" height="56" fill="#6b4a2a"/>
+              <rect x="4" y="20" width="56" height="4" fill="#3b2b1f"/>
+              <rect x="20" y="4" width="4" height="56" fill="#3b2b1f"/>
+              <rect x="40" y="4" width="4" height="56" fill="#3b2b1f"/>
+            </svg>
+            <span>Верстак</span>
+          </div>
+          <div class="icon-card" title="Меч">
+            <svg viewBox="0 0 64 64" class="pixel-icon" aria-hidden="true">
+              <rect width="64" height="64" fill="#0b0812"/>
+              <rect x="30" y="6" width="4" height="36" fill="#9ad1ff"/>
+              <rect x="26" y="22" width="12" height="4" fill="#9ad1ff"/>
+              <rect x="28" y="42" width="8" height="4" fill="#6b4a2a"/>
+              <rect x="26" y="46" width="12" height="4" fill="#6b4a2a"/>
+            </svg>
+            <span>Меч</span>
+          </div>
+          <div class="icon-card" title="Сундук">
+            <svg viewBox="0 0 64 64" class="pixel-icon" aria-hidden="true">
+              <rect width="64" height="64" fill="#0b0812"/>
+              <rect x="6" y="20" width="52" height="28" fill="#8b5a2b"/>
+              <rect x="6" y="20" width="52" height="6" fill="#6b4a2a"/>
+              <rect x="30" y="30" width="4" height="8" fill="#d7bf6a"/>
+            </svg>
+            <span>Сундук</span>
+          </div>
+        </div>
+
+        <div class="gallery" aria-label="Скриншоты">
+          <button class="nav prev" data-prev aria-label="Предыдущий">‹</button>
+          <div class="track" data-track>
+            <div class="slide s1">
+              <div class="screenshot" aria-hidden="true"></div>
+              <span class="caption">Легендарные руны в ночи</span>
+            </div>
+            <div class="slide s2">
+              <div class="screenshot" aria-hidden="true"></div>
+              <span class="caption">Таинственные биомы</span>
+            </div>
+            <div class="slide s3">
+              <div class="screenshot" aria-hidden="true"></div>
+              <span class="caption">Уютные поселения</span>
+            </div>
+          </div>
+          <button class="nav next" data-next aria-label="Следующий">›</button>
+        </div>
+      </section>
+
+      <section id="features" class="section features">
+        <h2 class="heading">Фишки сервера</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Кастомные биомы</h3>
+            <p>Уникальные локации с атмосферой тёмной магии.</p>
+          </article>
+          <article class="card">
+            <h3>Магические боссы</h3>
+            <p>Сражения с редкими существами и редкими трофеями.</p>
+          </article>
+          <article class="card">
+            <h3>Экономика и кланы</h3>
+            <p>Торговля, обмен и объединение игроков.</p>
+          </article>
+          <article class="card">
+            <h3>События каждую неделю</h3>
+            <p>Регулярные ивенты и сезонные активности.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="connect" class="section connect">
+        <h2 class="heading">Как подключиться</h2>
+        <ol class="steps">
+          <li>Установи Minecraft 1.21.8</li>
+          <li>Введи IP: <code>c3.play2go.cloud:20071</code></li>
+          <li>Наслаждайся игрой!</li>
+        </ol>
+        <button class="btn btn-secondary" data-copy-ip>
+          Скопировать IP
+        </button>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a class="discord" href="#" target="_blank" rel="noopener" aria-label="Discord">
+        <svg viewBox="0 0 128 128" class="discord-icon" aria-hidden="true">
+          <rect width="128" height="128" rx="12" fill="#202225"/>
+          <rect x="16" y="32" width="96" height="64" fill="#5865f2"/>
+          <rect x="32" y="48" width="16" height="16" fill="#202225"/>
+          <rect x="80" y="48" width="16" height="16" fill="#202225"/>
+          <rect x="48" y="72" width="32" height="8" fill="#202225"/>
+        </svg>
+        Discord
+      </a>
+      <div class="copy">© 2025 SHADOWLAND</div>
+    </footer>
+
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <noscript>
+      Для полного эффекта включите JavaScript (анимации и копирование IP).
+    </noscript>
+    <script src="/script.js" defer></script>
+  </body>
+  </html>
+
